@@ -10,15 +10,10 @@ public class  Rover {
 	private final PlateauSize limits;
 
 	public Rover(String origin ,  PlateauSize limits){
-		
 		String[] args = origin.split(" ");
-		if(args.length < 3){
-			
-		}
 		x = Integer.parseInt(args[0]);
 		y = Integer.parseInt(args[1]);
-		orientation = ORIENTATION.valueOf(args[2]);
-		
+		orientation = ORIENTATION.valueOf(args[2]);	
 		this.limits = limits; 
 	}
 	
@@ -35,9 +30,11 @@ public class  Rover {
 		}
 		return false;
 	}
+
 	public boolean equals( int x , int y ,ORIENTATION orientation){
 		return (this.x == x && this.y == y && this.orientation == orientation);
 	}
+
 	public void goForward(){// change x , y positions dependent on current facing direction
 		switch(orientation){
 			case N: 
@@ -54,19 +51,8 @@ public class  Rover {
 		}
 	}
 
-
-	
 	public void display(){
 		System.out.println(x + " " + y +  " " + orientation.toString());
 	}
-
-	public static class Direction{
-		public CMD[] moves;
-		
-		public Direction(String arg){
-			
-		}
-	}
-
 	
 }

@@ -14,9 +14,9 @@ public enum CMD{
 		default:
 			rover.orientation = rover.orientation.orient(this);
 			break;
-		}
-		
+		}		
 	}
+
 	public static CMD[] makeCMDArray(String cmdSequence){
 		CMD[] actions = new CMD[cmdSequence.length()];
 		for(int i = 0; i < cmdSequence.length(); i++){

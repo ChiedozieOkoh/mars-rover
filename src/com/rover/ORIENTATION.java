@@ -5,6 +5,7 @@ public enum ORIENTATION{
 	E("EAST"),
 	S("SOUTH"),
 	W("WEST");
+	
 	ORIENTATION(String str) {
 	}
 

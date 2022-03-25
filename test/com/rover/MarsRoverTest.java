@@ -11,9 +11,6 @@ public class MarsRoverTest {
 	
 	@Test
 	public void shouldMakeMarsRover(){
-		
-		
-		
 		assertRoverRotation(1,1,ORIENTATION.E,"1 1 N",CMD.R);
 		assertRoverRotation(1,1,ORIENTATION.W,"1 1 N",CMD.L);
 		assertRoverRotation(1,1,ORIENTATION.S,"1 1 E",CMD.R);
@@ -24,7 +21,6 @@ public class MarsRoverTest {
 		assertRoverMove(5,1,ORIENTATION.E,"5 1 E","MMMMM");
 		assertRoverMove(1,0,ORIENTATION.S,"1 0 S","MMMMM");
 		assertRoverMove(0,1,ORIENTATION.W,"0 1 W","MMMMM");
-		
 	}
 
 	private void assertRoverRotation(int x, int y, ORIENTATION orientation, String origin, CMD move){
@@ -76,7 +72,4 @@ public class MarsRoverTest {
 	public static final String TEST_POSITION_1 = "3 3 E";
 	public static final String TEST_DIRECTIONS_1 = "MMRMMRMRRM";
 	
-	public static void main(String[] args){
-		
-	}
 }
