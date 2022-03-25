@@ -59,9 +59,9 @@ public class MarsRoverTest {
 		master.execute();
 		int  i = 0;
 		for(Rover r : master.slaves){
-			assertEquals(r.x,expected[i].x);
-			assertEquals(r.y,expected[i].y);
-			assertEquals(r.orientation,expected[i].orientation);
+			assertEquals(r.getX(),expected[i].getX());
+			assertEquals(r.getY(),expected[i].getY());
+			assertEquals(r.getOrientation(),expected[i].getOrientation());
 			i++;
 		}
 		

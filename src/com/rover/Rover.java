@@ -1,9 +1,9 @@
 package com.rover;
 
 public class  Rover {
-	public int x;
-	public int y;
-	public ORIENTATION orientation;
+	private int x;
+	private int y;
+	private ORIENTATION orientation;
 	private final int limitX;
 	private final int limitY;
 	
@@ -33,6 +33,18 @@ public class  Rover {
 		this.limitY = limitY;
 	}
 	
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public ORIENTATION getOrientation() {
+		return orientation;
+	}
+
 	public boolean canMoveForward(){
 		switch (orientation){
 			case N:
