@@ -45,7 +45,7 @@ public class  Rover {
 		return orientation;
 	}
 
-	public boolean canMoveForward(){
+	private boolean canMoveForward(){
 		switch (orientation){
 			case N:
 				return y < limitY;
@@ -63,7 +63,8 @@ public class  Rover {
 		return (this.x == x && this.y == y && this.orientation == orientation);
 	}
 	
-	public  void orient(Cmd.Move move) {// change facing direction dependent on move command
+	// change facing direction dependent on move command
+	public  void orient(Cmd.Move move) {
 		switch(move){
 			case L: 
 				orientation = Orientation.values()[Math.floorMod(orientation.ordinal() -1 , Orientation.values().length)];
@@ -74,7 +75,11 @@ public class  Rover {
 		}
 	}
 	
-	public void goForward(){// change x , y positions dependent on current facing direction
+	// change x , y positions dependent on current facing direction
+	public void goForward(){
+		if(!canMoveForward()){
+			return;
+		}
 		switch(orientation){
 			case N: 
 				this.y++;

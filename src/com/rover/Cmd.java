@@ -8,7 +8,7 @@ public class Cmd{
 		M;
 	}
 	
-	Cmd(String str){
+	public Cmd(String str){
 		arguements = makeMOVEArray(str);
 	}
 	
@@ -16,9 +16,7 @@ public class Cmd{
 		for (int i = 0; i < arguements.length; i++) {
 			switch (arguements[i]) {
 			case M:
-				if (rover.canMoveForward()) {
-					rover.goForward();
-				}
+				rover.goForward();
 				break;
 			default:
 				rover.orient(arguements[i]);
