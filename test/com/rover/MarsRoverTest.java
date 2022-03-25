@@ -4,17 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
+import com.rover.Rover.ORIENTATION;
+
 public class MarsRoverTest {
 
 	
-	static final PlateauSize TEST_DIMENSION = new PlateauSize(5,5); 
-	
+	static final int TEST_PLATEAU_X = 5;
+	static final int TEST_PLATEAU_Y = 5;
 	@Test
 	public void shouldMakeMarsRover(){
-		assertRoverRotation(1,1,ORIENTATION.E,"1 1 N",CMD.R);
-		assertRoverRotation(1,1,ORIENTATION.W,"1 1 N",CMD.L);
-		assertRoverRotation(1,1,ORIENTATION.S,"1 1 E",CMD.R);
-		assertRoverRotation(1,1,ORIENTATION.N,"1 1 W",CMD.R);
+		assertRoverRotation(1,1,ORIENTATION.E,"1 1 N",new Cmd("R"));
+		assertRoverRotation(1,1,ORIENTATION.W,"1 1 N",new Cmd("L"));
+		assertRoverRotation(1,1,ORIENTATION.S,"1 1 E",new Cmd("R"));
+		assertRoverRotation(1,1,ORIENTATION.N,"1 1 W",new Cmd("R"));
 		
 		assertRoverMove(2,3,ORIENTATION.W,"1 1 N","MMRMLL");
 		assertRoverMove(1,5,ORIENTATION.N,"1 5 N","MMMMM");
@@ -23,19 +25,17 @@ public class MarsRoverTest {
 		assertRoverMove(0,1,ORIENTATION.W,"0 1 W","MMMMM");
 	}
 
-	private void assertRoverRotation(int x, int y, ORIENTATION orientation, String origin, CMD move){
-		Rover r = new Rover(origin,TEST_DIMENSION);
+	private void assertRoverRotation(int x, int y, ORIENTATION orientation, String origin, Cmd move){
+		Rover r = new Rover(origin,TEST_PLATEAU_X,TEST_PLATEAU_Y);
 		move.execute(r);
 		r.display();
 		assertTrue(r.equals(x,y,orientation));
 	}
 
 	private void assertRoverMove(int x, int y, ORIENTATION orientation, String origin,String moves){
-		Rover r =  new Rover(origin,TEST_DIMENSION);
-		CMD[] cmdArr = CMD.makeCMDArray(moves);
-		for(CMD cmd : cmdArr){
-			cmd.execute(r);
-		}
+		Rover r =  new Rover(origin,TEST_PLATEAU_X,TEST_PLATEAU_Y);
+		Cmd cmd = new Cmd(moves);
+		cmd.execute(r);
 		r.display();
 		assertTrue(r.equals(x,y,orientation));
 	}
@@ -49,8 +49,8 @@ public class MarsRoverTest {
 				"2 3 E\n" + 
 				"MLM\n";
 		Rover[] expected = new Rover[2];
-		expected[0] = new Rover("0 1 W",TEST_DIMENSION);
-		expected[1] = new Rover("3 4 N",TEST_DIMENSION);
+		expected[0] = new Rover("0 1 W",TEST_PLATEAU_X,TEST_PLATEAU_Y);
+		expected[1] = new Rover("3 4 N",TEST_PLATEAU_X,TEST_PLATEAU_Y);
 		assertSlavesFollow(expected,order);
 	}
 	
@@ -68,8 +68,8 @@ public class MarsRoverTest {
 	}
 
 	public static final String TEST_POSITION = "1 2 N";
-	public static final String TEST_DIRECTIONS = "LMLMLMLMM";
+	public static final String TEST_COMMANDS = "LMLMLMLMM";
 	public static final String TEST_POSITION_1 = "3 3 E";
-	public static final String TEST_DIRECTIONS_1 = "MMRMMRMRRM";
+	public static final String TEST_COMMANDS_1 = "MMRMMRMRRM";
 	
 }
