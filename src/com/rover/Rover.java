@@ -3,17 +3,17 @@ package com.rover;
 public class  Rover {
 	private int x;
 	private int y;
-	private ORIENTATION orientation;
+	private Orientation orientation;
 	private final int limitX;
 	private final int limitY;
 	
-	public enum ORIENTATION{
+	public enum Orientation{
 		N("NORTH"),
 		E("EAST"),
 		S("SOUTH"),
 		W("WEST");
 		String oriName; 
-		ORIENTATION(String str) {
+		Orientation(String str) {
 			this.oriName = str; 
 		}
 
@@ -28,7 +28,7 @@ public class  Rover {
 		String[] args = origin.split(" ");
 		x = Integer.parseInt(args[0]);
 		y = Integer.parseInt(args[1]);
-		orientation = ORIENTATION.valueOf(args[2]);	
+		orientation = Orientation.valueOf(args[2]);	
 		this.limitX = limitX;
 		this.limitY = limitY;
 	}
@@ -41,7 +41,7 @@ public class  Rover {
 		return y;
 	}
 
-	public ORIENTATION getOrientation() {
+	public Orientation getOrientation() {
 		return orientation;
 	}
 
@@ -59,17 +59,17 @@ public class  Rover {
 		return false;
 	}
 
-	public boolean equals( int x , int y ,ORIENTATION orientation){
+	public boolean equals( int x , int y ,Orientation orientation){
 		return (this.x == x && this.y == y && this.orientation == orientation);
 	}
 	
-	public  void orient(Cmd.MOVE move) {// change facing direction dependent on move command
+	public  void orient(Cmd.Move move) {// change facing direction dependent on move command
 		switch(move){
 			case L: 
-				orientation = ORIENTATION.values()[Math.floorMod(orientation.ordinal() -1 , ORIENTATION.values().length)];
+				orientation = Orientation.values()[Math.floorMod(orientation.ordinal() -1 , Orientation.values().length)];
 				break;
 			case R:
-				orientation = ORIENTATION.values()[(orientation.ordinal() + 1) % ORIENTATION.values().length];	
+				orientation = Orientation.values()[(orientation.ordinal() + 1) % Orientation.values().length];	
 				break;
 		}
 	}

@@ -1,8 +1,8 @@
 package com.rover;
 
 public class Cmd{
-	private MOVE[] arguements; 
-	public enum MOVE{
+	private Move[] arguements; 
+	public enum Move{
 		L,
 		R,
 		M;
@@ -27,10 +27,10 @@ public class Cmd{
 		}		
 	}
 
-	private  MOVE[] makeMOVEArray(String arguements){
-		MOVE[] actions = new MOVE[arguements.length()];
+	private  Move[] makeMOVEArray(String arguements){
+		Move[] actions = new Move[arguements.length()];
 		for(int i = 0; i < arguements.length(); i++){
-			actions[i] = MOVE.valueOf(String.valueOf(arguements.charAt(i)));
+			actions[i] = Move.valueOf(String.valueOf(arguements.charAt(i)));
 		}
 		return actions; 
 	}
