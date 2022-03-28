@@ -13,10 +13,15 @@ public class MarsRoverTest {
 	static final int TEST_PLATEAU_Y = 5;
 	@Test
 	public void shouldMakeMarsRover(){
-		assertRoverRotation(1,1,Orientation.E,"1 1 N",new Cmd("R"));
-		assertRoverRotation(1,1,Orientation.W,"1 1 N",new Cmd("L"));
-		assertRoverRotation(1,1,Orientation.S,"1 1 E",new Cmd("R"));
-		assertRoverRotation(1,1,Orientation.N,"1 1 W",new Cmd("R"));
+		try {
+			assertRoverRotation(1,1,Orientation.E,"1 1 N",new CommandListExecutor("R"));
+			assertRoverRotation(1,1,Orientation.W,"1 1 N",new CommandListExecutor("L"));
+			assertRoverRotation(1,1,Orientation.S,"1 1 E",new CommandListExecutor("R"));
+			assertRoverRotation(1,1,Orientation.N,"1 1 W",new CommandListExecutor("R"));
+		} catch (UnkownCommandException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		assertRoverMove(2,3,Orientation.W,"1 1 N","MMRMLL");
 		assertRoverMove(1,5,Orientation.N,"1 5 N","MMMMM");
@@ -25,19 +30,24 @@ public class MarsRoverTest {
 		assertRoverMove(0,1,Orientation.W,"0 1 W","MMMMM");
 	}
 
-	private void assertRoverRotation(int x, int y, Orientation orientation, String origin, Cmd move){
+	private void assertRoverRotation(int x, int y, Orientation orientation, String origin, CommandListExecutor move){
 		Rover r = new Rover(origin,TEST_PLATEAU_X,TEST_PLATEAU_Y);
-		move.execute(r);
+		move.run(r);
 		r.display();
 		assertTrue(r.equals(x,y,orientation));
 	}
 
 	private void assertRoverMove(int x, int y, Orientation orientation, String origin,String moves){
-		Rover r =  new Rover(origin,TEST_PLATEAU_X,TEST_PLATEAU_Y);
-		Cmd cmd = new Cmd(moves);
-		cmd.execute(r);
-		r.display();
-		assertTrue(r.equals(x,y,orientation));
+		try {
+			Rover r =  new Rover(origin,TEST_PLATEAU_X,TEST_PLATEAU_Y);
+			CommandListExecutor cmd = new CommandListExecutor(moves);
+			cmd.run(r);
+			r.display();
+			assertTrue(r.equals(x,y,orientation));
+		} catch (UnkownCommandException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -55,14 +65,19 @@ public class MarsRoverTest {
 	}
 	
 	private void assertSlavesFollow(Rover[] expected,String order){
-		Master master = new Master(order);
-		master.execute();
-		int  i = 0;
-		for(Rover r : master.slaves){
-			assertEquals(r.getX(),expected[i].getX());
-			assertEquals(r.getY(),expected[i].getY());
-			assertEquals(r.getOrientation(),expected[i].getOrientation());
-			i++;
+		try {
+			ControlCentre master = new ControlCentre(order);
+			master.execute();
+			int  i = 0;
+			for(Rover r : master.rovers){
+				assertEquals(r.getX(),expected[i].getX());
+				assertEquals(r.getY(),expected[i].getY());
+				assertEquals(r.getOrientation(),expected[i].getOrientation());
+				i++;
+			}
+		} catch (UnkownCommandException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

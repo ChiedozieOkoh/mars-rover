@@ -8,7 +8,12 @@ public class Main {
 		"LMLMLMLMM\n" + 
 		"3 3 E\n" + 
 		"MMRMMRMRRM\n";
-		Master master = new Master(order);
-		master.execute();
+		try {
+			ControlCentre master = new ControlCentre(order);
+			master.execute();
+		} catch (UnkownCommandException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

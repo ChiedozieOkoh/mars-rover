@@ -1,11 +1,16 @@
 package com.rover;
 
+import java.util.HashMap;
+import java.util.function.Function;
+
+
 public class  Rover {
 	private int x;
 	private int y;
 	private Orientation orientation;
 	private final int limitX;
 	private final int limitY;
+	
 	
 	public enum Orientation{
 		N("NORTH"),
@@ -31,6 +36,7 @@ public class  Rover {
 		orientation = Orientation.valueOf(args[2]);	
 		this.limitX = limitX;
 		this.limitY = limitY;
+		
 	}
 	
 	public int getX() {
@@ -64,35 +70,32 @@ public class  Rover {
 	}
 	
 	// change facing direction dependent on move command
-	public  void orient(Cmd.Move move) {
-		switch(move){
-			case L: 
-				orientation = Orientation.values()[Math.floorMod(orientation.ordinal() -1 , Orientation.values().length)];
-				break;
-			case R:
-				orientation = Orientation.values()[(orientation.ordinal() + 1) % Orientation.values().length];	
-				break;
-		}
+	public void orientLeft() {
+		orientation = Orientation.values()[Math.floorMod(orientation.ordinal() -1 , Orientation.values().length)];
+	}
+	public void orientRight(){
+		orientation = Orientation.values()[(orientation.ordinal() + 1) % Orientation.values().length];
 	}
 	
+	public void goNorth(){
+		this.y++;
+	}
+	public void goEast(){
+		this.x++;
+	}
+	public void goSouth(){
+		this.y--;
+	}
+	public void goWest(){
+		this.x--;
+	}
 	// change x , y positions dependent on current facing direction
-	public void goForward(){
+	public void goForward() throws UnkownRoverOrientation{
 		if(!canMoveForward()){
 			return;
 		}
-		switch(orientation){
-			case N: 
-				this.y++;
-				break; 
-			case E: 
-				this.x++;
-				break;
-			case S: 
-				this.y--;
-				break; 
-			case W: 
-				this.x--;
-		}
+		RoverMover movement = RoverMoverGenerator.GenerateRoverMover(orientation);
+		movement.move(this);
 	}
 
 	public void display(){
