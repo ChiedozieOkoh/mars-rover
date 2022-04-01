@@ -1,45 +1,37 @@
 package com.rover;
 
+import java.util.HashMap;
+
+import com.rover.CompassDirection.East;
+import com.rover.CompassDirection.North;
+import com.rover.CompassDirection.South;
+import com.rover.CompassDirection.West;
+import com.rover.Orientation.OrientationType;
+
 public class Position  {
 	public int x; 
 	public int y;
 	public Orientation orientation;
-	
+	private final HashMap<OrientationType,CompassDirection> orientationMap; 
 	
 	public Position(int x , int y , Orientation orientation){
 		this.x = x;
 		this.y = y; 
 		this.orientation = orientation; 
-	
+		this.orientationMap = new HashMap<>();
+		
+		orientationMap.put(OrientationType.N, new North());
+		orientationMap.put(OrientationType.E, new East());
+		orientationMap.put(OrientationType.S, new South());
+		orientationMap.put(OrientationType.W, new West());
 	}
 
 	public void moveForward(){
-		switch(this.orientation.getCurrentOrientation()){
-			case N: 
-				this.y++;
-				break;
-			case E:
-				this.x++;
-				break;
-			case S:  
-				this.y--;
-				break;
-			case W: 
-				this.x--;
-				break; 
-		}
+		CompassDirection direction = orientationMap.get(orientation.getCurrentOrientation());
+		direction.moveInThisDirection(this);
 	}
 	public boolean canMoveForward(Plateau plateau){
-		switch (orientation.getCurrentOrientation()){
-		case N:
-			return y < plateau.limitY;
-		case E: 
-			return x < plateau.limitX;
-		case S: 
-			return y > 0;
-		case W:
-			return x > 0;
-		}
-		return false;
+		CompassDirection direction = orientationMap.get(orientation.getCurrentOrientation());
+		return direction.canMoveInThisDirection(this, plateau);
 	}
 }

@@ -12,11 +12,9 @@ public class Main {
 		"LMLMLMLMM\n" + 
 		"3 3 E\n" + 
 		"MMRMMRMRRM\n";
-		//ControlCentre master = new ControlCentre(order);
-		//execute();
-		parseAndExecuteOrders(order);
-		
+		parseAndExecuteOrders(order);		
 	}
+	
 	public static void parseAndExecuteOrders(String orders){
 		String[] lines = orders.split("\n");
 		String[] limits = lines[0].split(" ");
@@ -34,6 +32,7 @@ public class Main {
 		Plateau plateau = new Plateau(limitX,limitY,positions,listOfMoves);
 		plateau.run();
 	}
+	
 	public static Position parsePosition(String str){
 		String[] arguements = str.split(" ");
 		int x = Integer.parseInt(arguements[0]);
@@ -42,6 +41,7 @@ public class Main {
 		
 		return new Position(x,y,new Orientation(type));
 	}
+	
 	public static Move[] parseMoveList(String str){
 		Move[] moves = new Move[str.length()];
 		for(int i = 0; i < str.length(); i++){
@@ -49,5 +49,4 @@ public class Main {
 		}
 		return moves; 
 	}
-	
 }

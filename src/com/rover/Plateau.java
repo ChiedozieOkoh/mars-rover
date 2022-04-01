@@ -1,12 +1,19 @@
 package com.rover;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.rover.MoveFunction.MoveForward;
+import com.rover.MoveFunction.MoveLeft;
+import com.rover.MoveFunction.MoveRight;
 
 public class Plateau {
-	public final int limitX;
-	public final int limitY;
-	private ArrayList<Position> originList; 
-	private ArrayList<Move[]> moveList;
+	public  final int limitX;
+	public  final int limitY;
+	private final ArrayList<Position> originList; 
+	private final ArrayList<Move[]> moveList;
+	private final HashMap<Move,MoveFunction>moveMap;
+	
 	public Plateau(int limitX , int limitY , ArrayList<Position> originList , ArrayList<Move[]> moveList) {
 		this.limitX = limitX;
 		this.limitY = limitY;
@@ -17,26 +24,21 @@ public class Plateau {
 		
 		this.moveList = new ArrayList<>(moveList.size());
 		this.moveList.addAll(moveList);
+		
+		moveMap = new HashMap<>();
+		moveMap.put(Move.L, new MoveLeft());
+		moveMap.put(Move.R, new MoveRight());
+		moveMap.put(Move.M, new MoveForward());
 	}
 	
 	
 	
 	private Position doMoveAtPosition(Position position, Move move){
-		switch(move){
-			case  L: 
-				 position.orientation.OrientLeft();
-				 break;
-			case R:
-				 position.orientation.OrientRight();
-				 break;
-			case M: 
-				 if(position.canMoveForward(this)){
-					 position.moveForward();
-				 }
-				 
-		}
+		MoveFunction moveFunction = moveMap.get(move);
+		moveFunction.execute(position, this);
 		return position; 
 	}
+	
 	public void run(){
 		for(int i = 0; i < originList.size(); i++){
 			Position currentPosition = originList.get(i);
