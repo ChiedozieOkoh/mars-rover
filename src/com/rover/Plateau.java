@@ -31,7 +31,9 @@ public class Plateau {
 		moveMap.put(Move.M, new MoveForward());
 	}
 	
-	
+	public ArrayList<Position> getOccupiedSpaces(){
+		return originList;
+	}
 	
 	private Position doMoveAtPosition(Position position, Move move){
 		MoveFunction moveFunction = moveMap.get(move);
@@ -45,8 +47,8 @@ public class Plateau {
 			for(Move move : moveList.get(i)){
 				currentPosition = doMoveAtPosition(currentPosition,move);
 			}
-			Rover rover = new Rover(currentPosition);
-			rover.display();
+			
+			currentPosition.display();
 		}
 	}
 }

@@ -34,4 +34,10 @@ public class Position  {
 		CompassDirection direction = orientationMap.get(orientation.getCurrentOrientation());
 		return direction.canMoveInThisDirection(this, plateau);
 	}
+	public boolean equals( Position p1){
+		return (x == p1.x && y == p1.y && orientation.getCurrentOrientation() == p1.orientation.getCurrentOrientation());
+	}
+	public void display(){
+		System.out.println(x + " " + y +  " " + orientation.getCurrentOrientation().toString());
+	}
 }

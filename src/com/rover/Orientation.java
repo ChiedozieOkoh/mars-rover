@@ -1,7 +1,6 @@
 package com.rover;
 public class Orientation{
 	
-	
 	public enum OrientationType{
 		N("NORTH"),
 		E("EAST"),

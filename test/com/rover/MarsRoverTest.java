@@ -1,10 +1,55 @@
 package com.rover;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+
 import org.junit.Test;
 
-public class MarsRoverTest {
+import com.rover.Orientation.OrientationType;
 
+public class MarsRoverTest {
+	static final int TEST_LIMIT_X = 5;
+	static final int TEST_LIMIT_Y = 5; 
+	@Test
+	public  void shouldTurnPosition(){
+		Position origin = new Position(1,1,new Orientation(OrientationType.N));
+		Move turnRight = Move.R;
+		Position expected = new Position(1,1,new Orientation(OrientationType.E));
+		
+		assertPositionAfterMove(origin,turnRight,expected);
+	}
+
+	@Test 
+	public void shouldMovePosition(){
+		Position origin = new Position(1,1,new Orientation(OrientationType.W));
+		Move moveForward = Move.M;
+		Position expected = new Position(0,1,new Orientation(OrientationType.W));
+		
+		assertPositionAfterMove(origin,moveForward,expected);
+	}
 	
+	@Test
+	public void shouldNotMovePosition(){
+		Position origin = new Position(TEST_LIMIT_X,TEST_LIMIT_Y,new Orientation(OrientationType.N));
+		Move moveForward = Move.M; 
+		Position expected = new Position(TEST_LIMIT_X,TEST_LIMIT_Y,new Orientation(OrientationType.N));
+		
+		assertPositionAfterMove(origin,moveForward,expected);
+	}
+	
+	private void assertPositionAfterMove(Position origin, Move move, Position expectedPosition){
+		ArrayList<Position>originList = new ArrayList<>();
+		originList.add(origin);
+		
+		ArrayList<Move[]>moveList = new ArrayList<>();
+		Move[] moves = new Move[1];
+		moves[0] = move;
+		moveList.add(moves);
+		
+		Plateau testPlateau = new Plateau(TEST_LIMIT_X,TEST_LIMIT_Y,originList,moveList);
+		testPlateau.run();
+		Position computedPosition = testPlateau.getOccupiedSpaces().get(0);
+		assertTrue(computedPosition.equals(expectedPosition));
+	}
 }
