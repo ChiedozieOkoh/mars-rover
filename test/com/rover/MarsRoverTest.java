@@ -12,34 +12,34 @@ public class MarsRoverTest {
 	static final int TEST_LIMIT_X = 5;
 	static final int TEST_LIMIT_Y = 5; 
 	@Test
-	public  void shouldTurnPosition(){
-		Position origin = new Position(1,1,new Orientation(OrientationType.N));
+	public  void shouldTurnRover(){
+		Rover origin = new Rover(1,1,new Orientation(OrientationType.N));
 		Move turnRight = Move.R;
-		Position expected = new Position(1,1,new Orientation(OrientationType.E));
+		Rover expected = new Rover(1,1,new Orientation(OrientationType.E));
 		
-		assertPositionAfterMove(origin,turnRight,expected);
+		assertRoverPositionAfterMove(origin,turnRight,expected);
 	}
 
 	@Test 
-	public void shouldMovePosition(){
-		Position origin = new Position(1,1,new Orientation(OrientationType.W));
+	public void shouldMoveRover(){
+		Rover origin = new Rover(1,1,new Orientation(OrientationType.W));
 		Move moveForward = Move.M;
-		Position expected = new Position(0,1,new Orientation(OrientationType.W));
+		Rover expected = new Rover(0,1,new Orientation(OrientationType.W));
 		
-		assertPositionAfterMove(origin,moveForward,expected);
+		assertRoverPositionAfterMove(origin,moveForward,expected);
 	}
 	
 	@Test
-	public void shouldNotMovePosition(){
-		Position origin = new Position(TEST_LIMIT_X,TEST_LIMIT_Y,new Orientation(OrientationType.N));
+	public void shouldNotMoveRover(){
+		Rover origin = new Rover(TEST_LIMIT_X,TEST_LIMIT_Y,new Orientation(OrientationType.N));
 		Move moveForward = Move.M; 
-		Position expected = new Position(TEST_LIMIT_X,TEST_LIMIT_Y,new Orientation(OrientationType.N));
+		Rover expected = new Rover(TEST_LIMIT_X,TEST_LIMIT_Y,new Orientation(OrientationType.N));
 		
-		assertPositionAfterMove(origin,moveForward,expected);
+		assertRoverPositionAfterMove(origin,moveForward,expected);
 	}
 	
-	private void assertPositionAfterMove(Position origin, Move move, Position expectedPosition){
-		ArrayList<Position>originList = new ArrayList<>();
+	private void assertRoverPositionAfterMove(Rover origin, Move move, Rover expectedPosition){
+		ArrayList<Rover>originList = new ArrayList<>();
 		originList.add(origin);
 		
 		ArrayList<Move[]>moveList = new ArrayList<>();
@@ -49,7 +49,7 @@ public class MarsRoverTest {
 		
 		Plateau testPlateau = new Plateau(TEST_LIMIT_X,TEST_LIMIT_Y,originList,moveList);
 		testPlateau.run();
-		Position computedPosition = testPlateau.getOccupiedSpaces().get(0);
+		Rover computedPosition = testPlateau.getOccupiedSpaces().get(0);
 		assertTrue(computedPosition.equals(expectedPosition));
 	}
 }

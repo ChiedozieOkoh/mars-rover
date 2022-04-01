@@ -10,45 +10,45 @@ import com.rover.MoveFunction.MoveRight;
 public class Plateau {
 	public  final int limitX;
 	public  final int limitY;
-	private final ArrayList<Position> originList; 
+	private final ArrayList<Rover> roverList; 
 	private final ArrayList<Move[]> moveList;
-	private final HashMap<Move,MoveFunction>moveMap;
+	private final HashMap<Move,MoveFunction>moveGenerator;
 	
-	public Plateau(int limitX , int limitY , ArrayList<Position> originList , ArrayList<Move[]> moveList) {
+	public Plateau(int limitX , int limitY , ArrayList<Rover> originList , ArrayList<Move[]> moveList) {
 		this.limitX = limitX;
 		this.limitY = limitY;
-		this.originList = new ArrayList<>(originList.size());
-		for(Position origin : originList){
-			this.originList.add( new Position(origin.x,origin.y,origin.orientation));
+		this.roverList = new ArrayList<>(originList.size());
+		for(Rover origin : originList){
+			this.roverList.add( new Rover(origin.x,origin.y,origin.orientation));
 		}
 		
 		this.moveList = new ArrayList<>(moveList.size());
 		this.moveList.addAll(moveList);
 		
-		moveMap = new HashMap<>();
-		moveMap.put(Move.L, new MoveLeft());
-		moveMap.put(Move.R, new MoveRight());
-		moveMap.put(Move.M, new MoveForward());
+		moveGenerator = new HashMap<>();
+		moveGenerator.put(Move.L, new MoveLeft());
+		moveGenerator.put(Move.R, new MoveRight());
+		moveGenerator.put(Move.M, new MoveForward());
 	}
 	
-	public ArrayList<Position> getOccupiedSpaces(){
-		return originList;
+	public ArrayList<Rover> getOccupiedSpaces(){
+		return roverList;
 	}
 	
-	private Position doMoveAtPosition(Position position, Move move){
-		MoveFunction moveFunction = moveMap.get(move);
-		moveFunction.execute(position, this);
-		return position; 
+	private Rover doMoveAtPosition(Rover rover, Move move){
+		MoveFunction moveFunction = moveGenerator.get(move);
+		moveFunction.execute(rover, this);
+		return rover; 
 	}
 	
 	public void run(){
-		for(int i = 0; i < originList.size(); i++){
-			Position currentPosition = originList.get(i);
+		for(int i = 0; i < roverList.size(); i++){
+			Rover currentRover = roverList.get(i);
 			for(Move move : moveList.get(i)){
-				currentPosition = doMoveAtPosition(currentPosition,move);
+				currentRover = doMoveAtPosition(currentRover,move);
 			}
 			
-			currentPosition.display();
+			currentRover.display();
 		}
 	}
 }

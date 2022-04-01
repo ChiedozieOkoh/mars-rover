@@ -22,24 +22,24 @@ public class Main {
 		int limitX = Integer.parseInt(limits[0]);
 		int limitY = Integer.parseInt(limits[1]);
 		
-		ArrayList<Position> positions = new ArrayList<>((lines.length -1)/2);
+		ArrayList<Rover> positions = new ArrayList<>((lines.length -1)/2);
 		ArrayList<Move[]> listOfMoves = new ArrayList<>((lines.length -1)/2);
 		
 		for(int i = 1; i < lines.length ; i+=2) {
-			positions.add(parsePosition(lines[i]));
+			positions.add(parseRover(lines[i]));
 			listOfMoves.add(parseMoveList(lines[i+1]));
 		}
 		Plateau plateau = new Plateau(limitX,limitY,positions,listOfMoves);
 		plateau.run();
 	}
 	
-	public static Position parsePosition(String str){
+	public static Rover parseRover(String str){
 		String[] arguements = str.split(" ");
 		int x = Integer.parseInt(arguements[0]);
 		int y = Integer.parseInt(arguements[1]);
 		OrientationType type  = OrientationType.valueOf(arguements[2]);
 		
-		return new Position(x,y,new Orientation(type));
+		return new Rover(x,y,new Orientation(type));
 	}
 	
 	public static Move[] parseMoveList(String str){

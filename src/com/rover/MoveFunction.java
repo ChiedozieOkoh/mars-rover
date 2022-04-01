@@ -1,7 +1,7 @@
 package com.rover;
 
 public interface MoveFunction {
-	void execute(Position position, Plateau plateau);
+	void execute(Rover rover, Plateau plateau);
 	
 	public static class MoveRight implements MoveFunction{
 		public MoveRight(){
@@ -9,8 +9,8 @@ public interface MoveFunction {
 		}
 		
 		@Override
-		public void execute(Position position, Plateau plateau) {
-			position.orientation.OrientRight();
+		public void execute(Rover rover, Plateau plateau) {
+			rover.orientation.OrientRight();
 		}
 	}
 	
@@ -20,8 +20,8 @@ public interface MoveFunction {
 		}
 		
 		@Override 
-		public void execute(Position position,Plateau plateau){
-			position.orientation.OrientLeft();
+		public void execute(Rover rover,Plateau plateau){
+			rover.orientation.OrientLeft();
 		}
 	}
 	
@@ -31,9 +31,9 @@ public interface MoveFunction {
 		}
 		
 		@Override
-		public void execute(Position position,Plateau plateau){
-			if(position.canMoveForward(plateau)){
-				position.moveForward();
+		public void execute(Rover rover,Plateau plateau){
+			if(rover.canMoveForward(plateau)){
+				rover.moveForward();
 			}
 		}
 	}
