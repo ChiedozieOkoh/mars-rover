@@ -13,27 +13,27 @@ public class MarsRoverTest {
 	static final int TEST_LIMIT_Y = 5; 
 	@Test
 	public  void shouldTurnRover(){
-		Rover origin = new Rover(1,1,new Orientation(OrientationType.N));
+		Rover origin = new Rover(1,1,new North());
 		Move turnRight = Move.R;
-		Rover expected = new Rover(1,1,new Orientation(OrientationType.E));
+		Rover expected = new Rover(1,1,new East());
 		
 		assertRoverPositionAfterMove(origin,turnRight,expected);
 	}
 
 	@Test 
 	public void shouldMoveRover(){
-		Rover origin = new Rover(1,1,new Orientation(OrientationType.W));
+		Rover origin = new Rover(1,1,new West());
 		Move moveForward = Move.M;
-		Rover expected = new Rover(0,1,new Orientation(OrientationType.W));
+		Rover expected = new Rover(0,1,new West());
 		
 		assertRoverPositionAfterMove(origin,moveForward,expected);
 	}
 	
 	@Test
 	public void shouldNotMoveRover(){
-		Rover origin = new Rover(TEST_LIMIT_X,TEST_LIMIT_Y,new Orientation(OrientationType.N));
+		Rover origin = new Rover(TEST_LIMIT_X,TEST_LIMIT_Y,new North());
 		Move moveForward = Move.M; 
-		Rover expected = new Rover(TEST_LIMIT_X,TEST_LIMIT_Y,new Orientation(OrientationType.N));
+		Rover expected = new Rover(TEST_LIMIT_X,TEST_LIMIT_Y,new North());
 		
 		assertRoverPositionAfterMove(origin,moveForward,expected);
 	}

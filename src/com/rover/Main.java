@@ -37,9 +37,8 @@ public class Main {
 		String[] arguements = str.split(" ");
 		int x = Integer.parseInt(arguements[0]);
 		int y = Integer.parseInt(arguements[1]);
-		OrientationType type  = OrientationType.valueOf(arguements[2]);
-		
-		return new Rover(x,y,new Orientation(type));
+		Orientation orientation = OrientationGenerator.createOrientation(arguements[2]);
+		return new Rover(x,y,orientation);
 	}
 	
 	public static Move[] parseMoveList(String str){

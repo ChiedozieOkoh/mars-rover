@@ -3,16 +3,11 @@ package com.rover;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.rover.MoveFunction.MoveForward;
-import com.rover.MoveFunction.MoveLeft;
-import com.rover.MoveFunction.MoveRight;
-
 public class Plateau {
 	public  final int limitX;
 	public  final int limitY;
 	private final ArrayList<Rover> roverList; 
 	private final ArrayList<Move[]> moveList;
-	private final HashMap<Move,MoveFunction>moveGenerator;
 	
 	public Plateau(int limitX , int limitY , ArrayList<Rover> originList , ArrayList<Move[]> moveList) {
 		this.limitX = limitX;
@@ -25,10 +20,6 @@ public class Plateau {
 		this.moveList = new ArrayList<>(moveList.size());
 		this.moveList.addAll(moveList);
 		
-		moveGenerator = new HashMap<>();
-		moveGenerator.put(Move.L, new MoveLeft());
-		moveGenerator.put(Move.R, new MoveRight());
-		moveGenerator.put(Move.M, new MoveForward());
 	}
 	
 	public ArrayList<Rover> getOccupiedSpaces(){
@@ -36,8 +27,8 @@ public class Plateau {
 	}
 	
 	private Rover doMoveAtPosition(Rover rover, Move move){
-		MoveFunction moveFunction = moveGenerator.get(move);
-		moveFunction.execute(rover, this);
+		Orientation currentOrientation = rover.orientation;
+		currentOrientation.executeMove(this,move,rover);
 		return rover; 
 	}
 	
