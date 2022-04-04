@@ -27,13 +27,13 @@ public abstract class Orientation {
 	}
 
 	
-	private Orientation orientLeft() {
+	public Orientation orientLeft() {
 		OrientationType newType =  OrientationType.values()[Math.floorMod(type.ordinal() -1 , OrientationType.values().length)];
 		Orientation newOrientation = OrientationGenerator.createOrientation(newType);
 		return newOrientation;
 	}
 	
-	private Orientation orientRight(){
+	public Orientation orientRight(){
 		OrientationType newType = OrientationType.values()[(type.ordinal() + 1) % OrientationType.values().length];
 		Orientation newOrientation = OrientationGenerator.createOrientation(newType);
 		return newOrientation;
@@ -42,33 +42,5 @@ public abstract class Orientation {
 	public OrientationType getCurrentOrientation(){
 		return type; 
 	}
-	
-	private final void left(Rover rover){
-		Orientation newOrientation = rover.orientation.orientLeft();
-		rover.orientation = newOrientation;
-	}
-	
-	private final void right(Rover rover){
-		Orientation newOrientation = rover.orientation.orientRight();
-		rover.orientation = newOrientation;
-	}
-	
-	public final Rover executeMove(Plateau plateau,Move move,Rover rover){
-		switch(move){
-			case L: 
-				left(rover);
-				break;
-			case R:
-				right(rover);
-				break;
-			case M:
-				if(canMoveForward(rover,plateau)){
-					moveForward(rover);
-				}
-		}
-		return rover;
-	}
-	
-	protected abstract void moveForward(Rover rover);
-	protected abstract boolean canMoveForward(Rover rover,Plateau plateau);
+
 }

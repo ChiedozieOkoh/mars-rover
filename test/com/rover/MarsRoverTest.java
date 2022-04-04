@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import com.rover.Orientation.OrientationType;
+
 
 public class MarsRoverTest {
 	static final int TEST_LIMIT_X = 5;

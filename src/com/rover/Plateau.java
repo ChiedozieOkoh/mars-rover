@@ -1,7 +1,6 @@
 package com.rover;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Plateau {
 	public  final int limitX;
@@ -19,26 +18,25 @@ public class Plateau {
 		
 		this.moveList = new ArrayList<>(moveList.size());
 		this.moveList.addAll(moveList);
-		
 	}
-	
+
 	public ArrayList<Rover> getOccupiedSpaces(){
 		return roverList;
 	}
-	
+
 	private Rover doMoveAtPosition(Rover rover, Move move){
-		Orientation currentOrientation = rover.orientation;
-		currentOrientation.executeMove(this,move,rover);
+		Command command = CommandGenerator.createCommand(rover.orientation.getCurrentOrientation(), move);
+		command.execute(rover, this);
 		return rover; 
 	}
-	
+
 	public void run(){
 		for(int i = 0; i < roverList.size(); i++){
 			Rover currentRover = roverList.get(i);
 			for(Move move : moveList.get(i)){
 				currentRover = doMoveAtPosition(currentRover,move);
 			}
-			
+
 			currentRover.display();
 		}
 	}
