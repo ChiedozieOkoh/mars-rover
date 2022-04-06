@@ -22,7 +22,7 @@ public interface Command {
 	public static class MoveForward implements Command{
 		@Override
 		public void execute(Rover rover,Vector vector, Plateau plateau){
-			rover.applyVector(vector, plateau);
+			rover.getPosition().applyVector(vector,rover.orientation, plateau);
 		}
 	}
 }

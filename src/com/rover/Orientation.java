@@ -8,14 +8,14 @@ public enum Orientation {
 	E("EAST"),
 	S("SOUTH"),
 	W("WEST");
-	String oriName; 
+	String name; 
 	Orientation(String str) {
-		this.oriName = str; 
+		this.name = str; 
 	}
 
 	@Override
 	public String toString() {
-		return oriName; 
+		return name; 
 	}
 	
 	public Orientation orientLeft() {
@@ -42,9 +42,4 @@ public enum Orientation {
 				return null;
 		}
 	}
-	
-	public Orientation getCurrentOrientation(){
-		return this;
-	}
-
 }
