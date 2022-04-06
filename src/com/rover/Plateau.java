@@ -13,7 +13,7 @@ public class Plateau {
 		this.limitY = limitY;
 		this.roverList = new ArrayList<>(originList.size());
 		for(Rover origin : originList){
-			this.roverList.add( new Rover(origin.x,origin.y,origin.orientation));
+			this.roverList.add( new Rover(origin.getX(),origin.getY(),origin.orientation));
 		}
 		
 		this.moveList = new ArrayList<>(moveList.size());
@@ -26,7 +26,8 @@ public class Plateau {
 
 	private Rover doMoveAtPosition(Rover rover, Move move){
 		Command command = CommandGenerator.createCommand(rover.orientation.getCurrentOrientation(), move);
-		command.execute(rover, this);
+		Vector moveVector = rover.orientation.forwardVector();
+		command.execute(rover,moveVector, this);
 		return rover; 
 	}
 

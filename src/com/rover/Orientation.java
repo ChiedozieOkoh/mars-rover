@@ -2,45 +2,49 @@ package com.rover;
 
 
 
-public abstract class Orientation {
-	public enum OrientationType{
-		N("NORTH"),
-		E("EAST"),
-		S("SOUTH"),
-		W("WEST");
-		String oriName; 
-		OrientationType(String str) {
-			this.oriName = str; 
-		}
-
-		@Override
-		public String toString() {
-			return oriName; 
-		}
+public enum Orientation {
 	
-	}
-	
-	private OrientationType type; 
-	
-	public Orientation(OrientationType orientationType){
-		type = orientationType;
+	N("NORTH"),
+	E("EAST"),
+	S("SOUTH"),
+	W("WEST");
+	String oriName; 
+	Orientation(String str) {
+		this.oriName = str; 
 	}
 
+	@Override
+	public String toString() {
+		return oriName; 
+	}
 	
 	public Orientation orientLeft() {
-		OrientationType newType =  OrientationType.values()[Math.floorMod(type.ordinal() -1 , OrientationType.values().length)];
-		Orientation newOrientation = OrientationGenerator.createOrientation(newType);
-		return newOrientation;
+		return  Orientation.values()[Math.floorMod(this.ordinal() -1 , Orientation.values().length)];
+		
 	}
 	
 	public Orientation orientRight(){
-		OrientationType newType = OrientationType.values()[(type.ordinal() + 1) % OrientationType.values().length];
-		Orientation newOrientation = OrientationGenerator.createOrientation(newType);
-		return newOrientation;
+		return Orientation.values()[(this.ordinal() + 1) % Orientation.values().length];
+		
+	}
+
+	public Vector forwardVector(){
+		switch(this){
+			case N: 
+				return new Vector(0,1);
+			case E:
+				return new Vector(1,0);
+			case S:
+				return new Vector(0,-1);
+			case W:
+				return new Vector(-1,0);
+			default: 
+				return null;
+		}
 	}
 	
-	public OrientationType getCurrentOrientation(){
-		return type; 
+	public Orientation getCurrentOrientation(){
+		return this;
 	}
 
 }

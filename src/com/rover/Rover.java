@@ -1,12 +1,12 @@
 package com.rover;
 
-import java.util.HashMap;
 
-import com.rover.Orientation.OrientationType;
+
+
 
 public class Rover{
-	public int x; 
-	public int y;
+	private int x; 
+	private int y;
 	public Orientation orientation;
 
 	
@@ -17,6 +17,33 @@ public class Rover{
 		
 	}
 
+	private boolean canMoveForward(Vector v, Orientation orientation,Plateau plateau){
+		switch(orientation){
+		case N:
+			return y + v.deltaY <= plateau.limitY;
+		case E:
+			return x + v.deltaX <= plateau.limitX;
+		case S:
+			return y + v.deltaY >= 0;
+		case W:
+			return x + v.deltaX >= 0;
+		default:
+			return false;
+		}
+	}
+	public void applyVector(Vector vector,Plateau plateau){
+		if (canMoveForward(vector,orientation,plateau)) {
+			x += vector.deltaX;
+			y += vector.deltaY;
+		}
+	}
+	
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
+	}
 	
 	public boolean equals( Rover p1){
 		return (x == p1.x && y == p1.y && orientation.getCurrentOrientation() == p1.orientation.getCurrentOrientation());
