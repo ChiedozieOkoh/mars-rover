@@ -37,11 +37,12 @@ public class Main {
 		limits[1] = Integer.parseInt(strLimits[1]);
 		return limits; 
 	}
+	
 	public static Rover parseRover(String str){
 		String[] arguements = str.split(" ");
 		int x = Integer.parseInt(arguements[0]);
 		int y = Integer.parseInt(arguements[1]);
-		Orientation orientation = OrientationGenerator.createOrientation(arguements[2]);
+		Orientation orientation = Orientation.valueOf(arguements[2]);
 		return new Rover(x,y,orientation);
 	}
 	
