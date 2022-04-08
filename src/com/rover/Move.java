@@ -11,9 +11,11 @@ public enum Move {
 		this.rotation = rotation;
 		this.vectorScale = vectorScale;
 	}
+	
 	public int getVectorScale(){
 		return vectorScale;
 	}
+	
 	public int getRotation(){
 		return rotation;
 	}

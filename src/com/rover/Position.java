@@ -10,8 +10,8 @@ public class Position {
 	}
 
 	public void applyVector(Vector vector,Orientation orientation, Plateau plateau){
-		x  = clamp(x + vector.deltaX,plateau.limitX);
-		y  = clamp(y + vector.deltaY,plateau.limitY);
+		x  = clamp(x + vector.deltaX,0,plateau.limitX);
+		y  = clamp(y + vector.deltaY,0,plateau.limitY);
 		
 	}
 	
@@ -19,13 +19,13 @@ public class Position {
 		return x == p1.getX() && y == p1.getY();
 	}
 	
-	private int clamp(int i,int limit){
-		if(i > limit){
-			return limit;
+	private int clamp(int i,int lowerBound,int upperBound){
+		if(i > upperBound){
+			return upperBound;
 		}
 		
-		if(i < 0){
-			return 0;
+		if(i < lowerBound){
+			return lowerBound;
 		}
 		return i;
 	}

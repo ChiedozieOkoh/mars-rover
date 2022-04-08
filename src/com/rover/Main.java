@@ -26,6 +26,7 @@ public class Main {
 			positions.add(parseRover(lines[i]));
 			listOfMoves.add(parseMoveList(lines[i+1]));
 		}
+
 		Plateau plateau = new Plateau(limits[0],limits[1],positions,listOfMoves);
 		plateau.run();
 	}
