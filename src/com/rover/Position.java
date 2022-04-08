@@ -12,7 +12,6 @@ public class Position {
 	public void applyVector(Vector vector,Orientation orientation, Plateau plateau){
 		x  = clamp(x + vector.deltaX,0,plateau.limitX);
 		y  = clamp(y + vector.deltaY,0,plateau.limitY);
-		
 	}
 	
 	public boolean equals(Position p1){
@@ -37,8 +36,4 @@ public class Position {
 	public int getY(){
 		return y;
 	}
-
-	
-	
-	
 }
