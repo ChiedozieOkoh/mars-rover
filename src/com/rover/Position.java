@@ -9,7 +9,7 @@ public class Position {
 		this.y = y;
 	}
 
-	public void applyVector(Vector vector,Orientation orientation, Plateau plateau){
+	public void applyVector(Vector vector, Plateau plateau){
 		x  = clamp(x + vector.deltaX,0,plateau.limitX);
 		y  = clamp(y + vector.deltaY,0,plateau.limitY);
 	}
