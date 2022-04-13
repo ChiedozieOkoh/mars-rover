@@ -16,7 +16,9 @@ public class Rover{
 	public Position getPosition(){
 		return position;
 	}
-	
+	public void applyVector(Vector v,Plateau plateau){
+		position.applyVector(v,plateau);
+	}
 	public Orientation getOrientation(){
 		return orientation;
 	}

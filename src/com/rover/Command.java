@@ -11,7 +11,7 @@ public class Command {
 		Vector v = rover.getOrientation().forwardVector();
 		v = v.scale(move.getVectorScale());
 		
-		rover.getPosition().applyVector(v, plateau);
+		rover.applyVector(v,plateau);
 		rover.orient(move);
 	}
 	
