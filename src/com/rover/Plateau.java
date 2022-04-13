@@ -24,17 +24,11 @@ public class Plateau {
 		return roverList;
 	}
 
-	private Rover doMoveAtPosition(Rover rover, Move move){
-		Command command = new Command(move);
-		command.execute(rover, this);
-		return rover; 
-	}
-
 	public void run(){
 		for(int i = 0; i < roverList.size(); i++){
 			Rover currentRover = roverList.get(i);
 			for(Move move : moveList.get(i)){
-				currentRover = doMoveAtPosition(currentRover,move);
+				move.execute(currentRover, this);
 			}
 
 			currentRover.display();
